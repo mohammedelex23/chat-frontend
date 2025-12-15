@@ -1,0 +1,24 @@
+/* src/index.css */
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #4eac6d;
+  --color-background: #4eac6d;
+  --color-lightBackground: #f6f6f9;
+  --color-headingText: #495057;
+  --color-secondaryText: #495057bf;
+  --color-lightText: #ffffff80;
+  --color-danger: #e74c3c;
+}
+
+@tailwind utilities;
+
+.input {
+  @apply text-sm text-headingText outline-none px-3 py-2 rounded-md border border-gray-300;
+}
+.form-group {
+  @apply flex flex-col mb-2
+}
+.form-btn {
+  @apply bg-primary w-full px-3 py-2 text-white rounded-md cursor-pointer
+}
