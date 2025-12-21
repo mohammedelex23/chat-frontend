@@ -1,16 +1,17 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { isEmpty, validateEmail, validatePassword } from "../utils/validators";
 
-export function useLoginForm() {
+export function useSignupForm() {
   const [values, setValues] = useState({
+    name: "",
     email: "",
     password: "",
-    remember: false,
     showPassword: false,
   });
 
   const [errors, setErrors] = useState({
     emailError: "",
+    nameError: "",
     passwordError: "",
   });
 
@@ -27,16 +28,24 @@ export function useLoginForm() {
           isValidForm = false;
         }
         errorsObj["emailError"] = errorMessage;
-      } else {
+      } else if (key == "passwordError") {
         errorMessage = validatePassword(values.password);
         if (errorMessage) {
           isValidForm = false;
         }
         errorsObj["passwordError"] = errorMessage;
+      } else {
+        let isEmptyName = isEmpty(values.name);
+
+        if (isEmptyName) {
+          isValidForm = false;
+          errorsObj["nameError"] = "name is empty";
+        } else {
+          errorsObj["nameError"] = "";
+        }
       }
     }
 
-   
     setErrors({
       ...errors,
       ...errorsObj,
@@ -62,12 +71,22 @@ export function useLoginForm() {
         break;
       case "password":
         let errorMessage = validatePassword(value);
-        
+
         setErrors({
           ...errors,
           passwordError: errorMessage,
         });
         break;
+
+      case "name":
+        let isEmptyName = isEmpty(value);
+
+        setErrors({
+          ...errors,
+          nameError: isEmptyName ? "name is empty" : "",
+        });
+        break;
+
       default:
         break;
     }
@@ -84,12 +103,6 @@ export function useLoginForm() {
       showPassword: !values.showPassword,
     });
   };
-  const toggleRemember = () => {
-    setValues({
-      ...values,
-      remember: !values.remember,
-    });
-  };
 
   const errorBorder = (error: string) => {
     if (error) return "1.5px solid red";
@@ -99,7 +112,6 @@ export function useLoginForm() {
     values,
     errors,
     toggleShowPassword,
-    toggleRemember,
     handleChange,
     errorBorder,
     handleSubmit,

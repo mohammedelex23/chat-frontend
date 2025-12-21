@@ -3,31 +3,52 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SocialMediaButton } from "./SocialMediaButton";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import { useLoginForm } from "../hooks/useLoginForm";
+import { useSignupForm } from "../hooks/useSignupForm";
 import { ErrorComponent } from "./ErrorComponent";
 import { Link } from "react-router";
 
-export function LoginForm() {
+export function SignupForm() {
   const {
     values,
     errors,
     errorBorder,
     handleChange,
     toggleShowPassword,
-    toggleRemember,
     handleSubmit,
-  } = useLoginForm();
+  } = useSignupForm();
   return (
-    <div className="bg-white py-4 mt-3 px-8 rounded-2xl m-auto w-xs md:w-md">
+    <div className="bg-white py-5 mt-3 px-8 rounded-2xl m-auto w-xs md:w-md">
       <form onSubmit={handleSubmit}>
         {/* title */}
         <div className="mb-3 text-center">
           <h1 className="font-medium text-headingText">
-            Welcome Back!
+            Register!
           </h1>
           <p className="text-secondaryText -mt-3">
-            Sign in to continue to Chat
+            Create new account to chat with friends
           </p>
+        </div>
+        {/* name */}
+        <div className="form-group">
+          <label className="mb-2 text-headingText" htmlFor="name">
+            Name
+          </label>
+          <div className="flex flex-col">
+            <input
+              name="name"
+              value={values.name}
+              onChange={handleChange("name")}
+              className="input"
+              style={{
+                border: errorBorder(errors.nameError),
+              }}
+              type="text"
+              placeholder="Enter name"
+            />
+            {errors.nameError && (
+              <ErrorComponent message={errors.nameError} />
+            )}
+          </div>
         </div>
         {/* email */}
         <div className="form-group">
@@ -53,14 +74,10 @@ export function LoginForm() {
         </div>
         {/* password */}
         <div className="form-group">
-          <div className="flex justify-between mb-2">
-            <label className="text-headingText" htmlFor="password">
+            <label className="mb-2 text-headingText" htmlFor="password">
               Password
             </label>
-            <a className="text-secondaryText" href="#">
-              Forgot password?
-            </a>
-          </div>
+            
           <div className="flex flex-col">
             <div
               style={{
@@ -97,29 +114,14 @@ export function LoginForm() {
             )}
           </div>
         </div>
-        {/* remember me */}
-        <div className="flex gap-2 mb-4">
-          <input
-            id="remember"
-            onClick={toggleRemember}
-            className="w-4 h-4 border-gray-300 rounded-sm checked:bg-primary checked:border-primary"
-            type="checkbox"
-            name="remember"
-          />
-          <label
-            className="text-headingText font-medium text-xs"
-            htmlFor="remember"
-          >
-            Remember me
-          </label>
-        </div>
-        {/* login button */}
-        <button className="form-btn ">Log In</button>
+       
+        {/* signup button */}
+        <button className="form-btn ">Signup</button>
         {/* sign in with divider */}
         <div className="my-5 flex gap-0 justify-between items-center">
           <hr className="flex-1 text-gray-300" />
           <span className="mx-2 text-headingText font-medium">
-            Sign in using
+            Sign up using
           </span>
           <hr className="flex-1 text-gray-300" />
         </div>
@@ -131,10 +133,10 @@ export function LoginForm() {
           <SocialMediaButton color="text-black-200" icon={faX} />
         </div>
         {/* register */}
-        <p className="text-center mb-3 text-secondaryText">
-          Don't have an account ?{" "}
-          <Link to="/register" className="text-primary cursor-pointer select-none underline">
-            Register
+        <p className="text-center text-secondaryText">
+          Already have an account ?{" "}
+          <Link to="/" className="select-none cursor-pointer text-primary underline">
+            login
           </Link>
         </p>
       </form>
