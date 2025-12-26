@@ -1,7 +1,11 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { isEmpty, validateEmail, validatePassword } from "../utils/validators";
+import { useNavigate } from "react-router";
 
 export function useSignupForm() {
+
+  const Navigate = useNavigate()
+
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -56,7 +60,7 @@ export function useSignupForm() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!validateFormFields()) return;
-    alert(`form is valid ${JSON.stringify(values)}`);
+    Navigate("/register_completed")
   };
 
   const handleChange = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {

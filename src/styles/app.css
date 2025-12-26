@@ -22,3 +22,13 @@
 .form-btn {
   @apply bg-primary w-full px-3 py-2 text-white rounded-md cursor-pointer
 }
+.link {
+  @apply select-none cursor-pointer text-primary underline
+}
+.icon-size {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.icon-color{
+  color: grey
+}

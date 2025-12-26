@@ -135,7 +135,7 @@ export function SignupForm() {
         {/* register */}
         <p className="text-center text-secondaryText">
           Already have an account ?{" "}
-          <Link to="/" className="select-none cursor-pointer text-primary underline">
+          <Link to="/" className="link">
             login
           </Link>
         </p>

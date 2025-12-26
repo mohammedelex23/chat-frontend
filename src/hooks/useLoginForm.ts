@@ -1,7 +1,9 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { isEmpty, validateEmail, validatePassword } from "../utils/validators";
+import { useNavigate } from "react-router";
 
 export function useLoginForm() {
+  const Navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -36,7 +38,6 @@ export function useLoginForm() {
       }
     }
 
-   
     setErrors({
       ...errors,
       ...errorsObj,
@@ -47,7 +48,9 @@ export function useLoginForm() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!validateFormFields()) return;
-    alert(`form is valid ${JSON.stringify(values)}`);
+    Navigate("/conversations", {
+      replace: true,
+    });
   };
 
   const handleChange = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +65,7 @@ export function useLoginForm() {
         break;
       case "password":
         let errorMessage = validatePassword(value);
-        
+
         setErrors({
           ...errors,
           passwordError: errorMessage,

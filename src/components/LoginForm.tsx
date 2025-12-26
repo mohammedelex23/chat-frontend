@@ -133,7 +133,7 @@ export function LoginForm() {
         {/* register */}
         <p className="text-center mb-3 text-secondaryText">
           Don't have an account ?{" "}
-          <Link to="/register" className="text-primary cursor-pointer select-none underline">
+          <Link to="/register" className="link">
             Register
           </Link>
         </p>
