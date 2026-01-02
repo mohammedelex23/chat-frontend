@@ -10,6 +10,7 @@ import { RouteNotFound } from "./components/RouteNotFound.tsx";
 import { Chats } from "./pages/Chats.tsx";
 import { Conversations } from "./components/Conversations.tsx";
 import { Settings } from "./components/Settings.tsx";
+import { ConversationPage } from "./pages/ConversationPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -51,18 +52,21 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Conversations
+        Component: Conversations,
       },
       {
         path: "/conversations/settings",
-        Component: Settings
-      }
-    ]
-  }
+        Component: Settings,
+      },
+    ],
+  },
+  {
+    path: "/conversations/:id",
+    Component: ConversationPage,
+  },
 ]);
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  
     <RouterProvider router={router} />
-  </StrictMode>
 );

@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router";
+import { Status } from "../enums";
+
 export function ConversationsList() {
   return (
     <ul
@@ -11,97 +14,64 @@ export function ConversationsList() {
     "
     >
       <ConversationsListItem
-        unreadMessages={1}
-        lastMessage="how are you what is going in last 
-        time I messaged you"
-        name={"Mohammed Ismail"}
-      />
-      <ConversationsListItem
-        unreadMessages={5}
-        lastMessage="how are you"
-        name={"Mohammed Ismail"}
-      />
-      <ConversationsListItem
-        unreadMessages={99}
-        lastMessage="how are you"
-        name={"Mohammed Ismail"}
-      />
-      <ConversationsListItem
-        unreadMessages={100}
-        lastMessage="how are you"
-        name={"Mohammed Ismail"}
-      />
-      <ConversationsListItem
-        unreadMessages={300}
-        lastMessage="how are you"
-        name={"Mohammed Ismail"}
-      />
-      <ConversationsListItem
+      id="4"
+      status={Status.OFFLINE}
         unreadMessages={4}
         lastMessage="how are you"
         name={"Mohammed Ismail"}
       />
       <ConversationsListItem
+      id="4"
+      status={Status.ONLINE}
         unreadMessages={4}
         lastMessage="how are you"
         name={"Mohammed Ismail"}
       />
       <ConversationsListItem
+      id="4"
+      status={Status.OFFLINE}
         unreadMessages={4}
         lastMessage="how are you"
         name={"Mohammed Ismail"}
       />
       <ConversationsListItem
+      id="4"
+      status={Status.OFFLINE}
         unreadMessages={4}
         lastMessage="how are you"
         name={"Mohammed Ismail"}
       />
       <ConversationsListItem
+      id="4"
+      status={Status.ONLINE}
         unreadMessages={4}
         lastMessage="how are you"
         name={"Mohammed Ismail"}
       />
       <ConversationsListItem
+      id="4"
+      status={Status.ONLINE}
         unreadMessages={4}
         lastMessage="how are you"
         name={"Mohammed Ismail"}
       />
       <ConversationsListItem
+      id="4"
+      status={Status.ONLINE}
         unreadMessages={4}
         lastMessage="how are you"
         name={"Mohammed Ismail"}
       />
       <ConversationsListItem
+      id="4"
+      status={Status.ONLINE}
         unreadMessages={4}
         lastMessage="how are you"
         name={"Mohammed Ismail"}
       />
       <ConversationsListItem
-        unreadMessages={4}
-        lastMessage="how are you"
-        name={"Mohammed Ismail"}
-      />
-      <ConversationsListItem
-        unreadMessages={4}
-        lastMessage="how are you"
-        name={"Mohammed Ismail"}
-      />
-      <ConversationsListItem
-        unreadMessages={4}
-        lastMessage="how are you"
-        name={"Mohammed Ismail"}
-      />
-      <ConversationsListItem
-        unreadMessages={4}
-        lastMessage="how are you"
-        name={"Mohammed Ismail"}
-      />
-      <ConversationsListItem
-        unreadMessages={4}
-        lastMessage="how are you"
-        name={"Mohammed Ismail"}
-      />
-      <ConversationsListItem
+      id="4"
+      status={Status.ONLINE}
         unreadMessages={4}
         lastMessage="how are you"
         name={"Mohammed Ismail"}
@@ -111,12 +81,16 @@ export function ConversationsList() {
 }
 
 function ConversationsListItem(props: {
+  id: string,
+  status: Status,
   name: string;
   lastMessage: string;
   unreadMessages: number;
 }) {
+  const Navigate = useNavigate()
   return (
     <li
+    onClick={() => Navigate(`/conversations/${props.id}`)}
       className="
      select-none cursor-pointer
      p-2 hover:bg-gray-300
@@ -133,7 +107,7 @@ function ConversationsListItem(props: {
               alt="avatar"
             />
           </div>
-          <OnlineIndicator />
+          <OnlineIndicator status={props.status} />
         </div>
         <div className="flex flex-col">
           {/* name */}
@@ -166,14 +140,16 @@ function ConversationsListItem(props: {
   );
 }
 
-function OnlineIndicator() {
+function OnlineIndicator(props: {status: Status}) {
   return (
     <div
-      className="
+      className={`
     absolute bottom-0 right-0
-    bg-green-500 border-2
-     border-white 
-    w-3 h-3 rounded-full"
+    border-2
+  border-white 
+    w-3 h-3 rounded-full
+  ${props.status == Status.ONLINE ? "bg-green-500" : "bg-orange-500"}
+    `}
     ></div>
   );
 }
